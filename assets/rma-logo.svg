@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 270" role="img" aria-labelledby="title desc">
+<title id="title">RMA Thống Linh Hand Morse</title><desc id="desc">Premium RMA logo with gear, red navy emblem, circuit lines and Morse dots.</desc>
+<defs>
+ <linearGradient id="red" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ff2635"/><stop offset="1" stop-color="#d90016"/></linearGradient>
+ <linearGradient id="navy" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#123c83"/><stop offset="1" stop-color="#031638"/></linearGradient>
+ <linearGradient id="cyan" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#43e7ff"/><stop offset="1" stop-color="#178fe0"/></linearGradient>
+ <filter id="glow"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+</defs>
+<!-- gear -->
+<g transform="translate(105 135)">
+ <path d="M0-57l11 8 18-2 7-12 17 10-3 14 13 13 14-2 6 19-13 7-2 18 10 10-13 15-13-6-16 8-2 14-20 2-5-13-18-6-11 9-14-13 7-12-9-17-14-4 4-20 14-1 11-16-4-14 18-9 8 11 19-1z" fill="#ffe500" stroke="#ffef3b" stroke-width="3"/>
+ <circle r="29" fill="#0b214d"/>
+ <circle r="17" fill="#fff"/>
+</g>
+<!-- emblem -->
+<path d="M135 28h82c-2 56-12 99-29 128l31 86h-61c18-54 22-93 14-120-7-25-18-55-37-94z" fill="url(#red)"/>
+<path d="M129 28c15 51 31 91 41 120 9 27 6 61-8 94h-56c24-56 30-107 23-153-3-20-7-40-11-61z" fill="url(#navy)"/>
+<path d="M122 28c15 48 28 87 35 115" stroke="#fff" stroke-width="7" opacity=".95"/>
+<!-- RMA -->
+<text x="255" y="153" font-family="Georgia,Times New Roman,serif" font-size="142" font-weight="700" letter-spacing="8" fill="#f7fbff">RMA</text>
+<rect x="260" y="177" width="480" height="2" fill="#4cd9ff" opacity=".7"/>
+<text x="262" y="211" font-family="Inter,Segoe UI,Arial,sans-serif" font-size="21" font-weight="600" fill="#bfeeff" letter-spacing="1">ROBOTIC – MATH APPLICATION CLUB THONG LINH</text>
+<text x="262" y="242" font-family="Georgia,Times New Roman,serif" font-size="20" font-style="italic" fill="#ffe500">Since 2024</text>
+<!-- circuit -->
+<g fill="none" stroke="url(#cyan)" stroke-width="4" stroke-linecap="round" filter="url(#glow)">
+ <path d="M750 54h55l22-20h88"/><path d="M770 78h32l25-25h62"/><path d="M760 101h48l22-22h72"/>
+</g>
+<g fill="#4cd9ff"><circle cx="915" cy="34" r="5"/><circle cx="891" cy="53" r="5"/><circle cx="902" cy="79" r="5"/><circle cx="918" cy="101" r="5"/></g>
+<!-- Morse signature -->
+<g transform="translate(760 144)" fill="#4cd9ff"><circle cx="0" cy="0" r="5"/><rect x="17" y="-3" width="31" height="6" rx="3"/><circle cx="62" cy="0" r="5"/><rect x="79" y="-3" width="31" height="6" rx="3"/><circle cx="124" cy="0" r="5"/></g>
+</svg>

@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>RMA Thống Linh — Hand Morse AI Vision</title>
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="css/theme.css"><link rel="stylesheet" href="css/layout.css"><link rel="stylesheet" href="css/components.css"><link rel="stylesheet" href="css/camera.css"><link rel="stylesheet" href="css/responsive.css">
+<script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js" crossorigin="anonymous"></script>
+</head>
+<body>
+<canvas id="ambientFx" aria-hidden="true"></canvas>
+<div class="app-shell">
+<header class="topbar">
+  <div class="brand"><img class="brand-logo" src="assets/rma-logo.svg" alt="RMA Thống Linh — Robotic Math Application Club"></div>
+  <div class="brand-slogan"><span class="pulse-word">HAND MORSE</span> · KẾT NỐI QUÁ KHỨ — KIẾN TẠO TƯƠNG LAI</div>
+  <div class="fps"><span></span><b id="fps">30</b> FPS</div>
+</header>
+<main class="main-grid">
+<section class="stage panel neon-panel">
+ <div class="brand-ribbon"><span class="ribbon-mark">RMA</span><div><b>HAND MORSE · CAMERA AI VISION</b><small>Nhận diện cử chỉ · Giải mã Morse thời gian thực · Since 2024</small></div><em>THỐNG LINH</em><i class="ribbon-signal">● — ● ● —</i></div>
+ <div class="video-wrap" id="videoWrap">
+   <video id="inputVideo" playsinline muted></video><canvas id="outputCanvas"></canvas><canvas id="fxCanvas"></canvas>
+   <div class="hud hud-tl"><span>RMA // AI VISION</span><b id="hudMode">CAMERA ONLINE</b></div>
+   <div class="hud hud-tr"><span>TRACKING</span><b id="hudTracking">STANDBY</b></div>
+   <div class="hud hud-bl"><span>HAND MORSE</span><b id="hudSignal">SIGNAL 0%</b></div>
+   <div class="hud hud-br"><span>LATENCY</span><b id="hudLatency">-- ms</b></div>
+   <div class="scanline"></div><div class="scan-sweep"></div>
+   <div class="reticle"><i></i><b>PLACE HAND</b></div>
+   <div class="camera-badge" id="cameraStatus">● ĐANG KHỞI ĐỘNG CAMERA</div>
+   <div class="no-camera" id="cameraError">Không truy cập được camera.<br><button id="retryCamera">THỬ LẠI</button></div>
+ </div>
+ <div class="stage-controls"><button id="cameraBtn" class="primary">📷 Camera</button><button id="uploadBtn">⬆ Upload video</button><input id="videoFile" type="file" accept="video/*" hidden><button id="analyzeBtn">▶ Phân tích</button><button id="clearBtn">⌫ Xóa</button><button id="soundBtn" class="ghost">🔊 Âm thanh</button></div>
+</section>
+<aside class="side">
+ <section class="panel hand-panel neon-panel"><div class="panel-title"><span class="title-icon">✦</span> BÀN TAY MORSE <span class="live-dot"></span></div><div class="tracked" id="tracked">Chưa phát hiện</div>
+  <div class="finger"><i class="c1"></i><b>Index</b><span>chấm ·</span></div><div class="finger"><i class="c2"></i><b>Middle</b><span>gạch −</span></div><div class="finger"><i class="c3"></i><b>Ring</b><span>kết thúc ký tự</span></div><div class="finger"><i class="c4"></i><b>Pinky</b><span>xóa · giữ để clear</span></div>
+  <div class="mini-meter"><div><span>CONFIDENCE</span><b id="confidenceText">0%</b></div><i id="confidenceBar"></i></div>
+ </section>
+ <section class="panel chart neon-panel"><div class="panel-title"><span class="title-icon">〽</span> BẢNG MÃ MORSE</div><div id="morseChart"></div></section>
+ <section class="panel advanced-panel neon-panel"><div class="panel-title"><span class="title-icon">⚡</span> AI CONTROL</div>
+  <div class="control-row"><label>Độ nhạy <output id="sensitivityValue">82%</output></label><input id="sensitivity" class="range" type="range" min="1" max="100" value="82"></div>
+  <div class="control-row"><label>Làm mượt tín hiệu <output id="smoothingValue">68%</output></label><input id="smoothing" class="range" type="range" min="0" max="95" value="68"></div>
+  <div class="control-row"><label>Cường độ hiệu ứng <output id="effectValue">88%</output></label><input id="effectIntensity" class="range" type="range" min="0" max="100" value="88"></div>
+  <div class="control-row checks"><label class="switch"><input id="effectsToggle" type="checkbox" checked> Neon / particles</label><label class="switch"><input id="trailToggle" type="checkbox" checked> Hand trail</label></div>
+  <div class="signal"><i id="signalBar"></i></div>
+ </section>
+</aside>
+<section class="bottom panel neon-panel"><div class="instruction"><div><small>THAO TÁC HIỆN TẠI</small><strong id="currentAction">Đưa tay vào khung để bắt đầu</strong></div><div class="keys"><kbd>H</kbd> Bảng mã <kbd>M</kbd> Âm thanh <kbd>X</kbd> Cài đặt <kbd>Esc</kbd> Xóa</div></div>
+ <div class="letter"><small>CHỮ HIỆN TẠI</small><b id="currentCode">—</b><span id="currentLetter">Chờ thao tác...</span><div class="morse-lights" id="morseLights"><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+ <div class="message"><div><small>TIN NHẮN</small><span id="messageCount">0 ký tự</span></div><div class="message-text" id="message">|</div></div>
+</section>
+</main>
+<footer><div class="footer-brand"><img src="assets/rma-logo.svg" alt="RMA Thống Linh"><div><b>RMA THỐNG LINH</b><span>Robotic – Math Application Club Thong Linh · Since 2024</span></div></div><div class="footer-center"><span>● LIVE AI</span><span>◈ MORSE ENGINE</span><span>⌁ HAND TRACKING</span></div><div class="slogan">“Nhỏ nhưng kết nối lớn”<br>— Hand Morse</div></footer>
+</div>
+<div class="toast" id="toast"></div>
+<script src="js/config.js"></script><script src="js/morse-data.js"></script><script src="js/state.js"></script><script src="js/audio.js"></script><script src="js/morse-engine.js"></script><script src="js/gesture-detector.js"></script><script src="js/hand-tracker.js"></script><script src="js/camera-controller.js"></script><script src="js/video-analyzer.js"></script><script src="js/ui.js"></script><script src="js/app.js"></script>
+</body></html>
+  

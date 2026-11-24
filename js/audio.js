@@ -1,0 +1,1 @@
+window.RMA_AUDIO={ctx:null,beep(kind='dot'){if(!RMA_STATE.audio)return;try{this.ctx??=new (AudioContext||webkitAudioContext)();const o=this.ctx.createOscillator(),g=this.ctx.createGain();o.frequency.value=kind==='dash'?520:720;g.gain.value=.035;o.connect(g).connect(this.ctx.destination);o.start();o.stop(this.ctx.currentTime+(kind==='dash'?.16:.07));}catch(e){}}};

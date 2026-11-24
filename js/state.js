@@ -1,0 +1,1 @@
+window.RMA_STATE={current:'',message:'',lastGesture:'none',lastGestureAt:0,pinkySince:0,audio:true,mode:'camera',running:false,stableGesture:'none',stableCount:0,gestureLatched:false,sensitivity:RMA_CONFIG.sensitivity,frames:0,fps:0,lastFrameTime:performance.now(),confidence:0,latency:0};
